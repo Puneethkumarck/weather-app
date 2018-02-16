@@ -1,0 +1,9 @@
+FROM cassandra:2.2
+
+COPY cassandra_config/entrypoint-wrap-cassandra.sh /entrypoint-wrap-cassandra.sh
+
+COPY cassandra_config/weather-details.cql  docker-entrypoint-initdb.d/
+
+ENTRYPOINT ["/entrypoint-wrap-cassandra.sh"]
+
+CMD ["cassandra", "-f"]
