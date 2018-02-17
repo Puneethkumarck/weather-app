@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.retry.annotation.Recover
 import org.springframework.retry.annotation.Retryable
 import org.springframework.stereotype.Service
+import org.springframework.web.client.RestTemplate
 
 
 @Service
@@ -19,15 +20,21 @@ class RetryWeatherService {
     WeatherFeignCall weatherFeignCall
 
 
-    @Retryable(value = [FeignException.class] , maxAttempts = 4)
-    WeatherResponse getWeatherResponse(float lang, float lat, String appID, String appSecret){
-        WeatherResponse weatherResponse= weatherFeignCall.currentWeather(lang,lat,appID,appSecret)
+    @Autowired RestTemplate restTemplate
+
+    @Retryable(value = [Exception.class] , maxAttempts = 4)
+    WeatherResponse getWeatherResponse(float lon, float lat, String app_id, String app_key){
+        log.info("making feign call method processing weather request for lat  ${lat} and ${lon}")
+       // WeatherResponse weatherResponse= weatherFeignCall.currentWeather(lat,lon,app_id,app_key)
+        Map result= restTemplate.getForObject(getSubscriptionUrl(regionCode),Map.class)
+
+        log.info("feign call response for weather request for lat  ${lat} and ${lon} is ${weatherResponse}")
         weatherResponse
     }
 
 
     @Recover
-    WeatherResponse wetaherRetryFallBack(FeignException e){
+    WeatherResponse wetaherRetryFallBack(Exception e){
         log.warn("Weather service is down we have attempted 5 retries ")
         throw new WeatherServiceException()
     }

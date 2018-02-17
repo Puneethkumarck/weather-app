@@ -10,20 +10,22 @@ import java.time.LocalDateTime
 class WeatherResponse {
 
     @PrimaryKeyColumn(name = 'id', ordinal = 0,type=PrimaryKeyType.PARTITIONED)
-    private Long id
+     Long id
 
     @Column('incident_number')
-    private String incidentNumber
+     String incidentNumber
 
     @Column('temp')
-    private Float temperature
+     Float temperature
 
     @Column('condition_desc')
-    private String conditionDescription
+     String conditionDescription
 
-    private LocalDateTime datetime
+    @Column('datetime')
+     LocalDateTime datetime
 
-    private String zip
+    @Column('zip')
+     String zip
 
 
     @Override

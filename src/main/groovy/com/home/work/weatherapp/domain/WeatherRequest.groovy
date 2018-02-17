@@ -1,27 +1,46 @@
 package com.home.work.weatherapp.domain
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.home.work.weatherapp.util.CustomDeserializer
+import org.apache.commons.lang.builder.ToStringBuilder
+
 import java.time.LocalDateTime
 
 
 
 class WeatherRequest {
 
-    private Long id
+     Long id
 
-    private String address
+     String address
 
-    private String type
+     String type
 
-    private float latitude
+     float latitude
 
-    private float longitude
+     float longitude
 
     @JsonDeserialize(using = CustomDeserializer.class)
-    private LocalDateTime datetime
+     LocalDateTime datetime
 
-    private String incidentNumber
+     String incidentNumber
 
-    private String zip
+     String zip
 
+    WeatherRequest() {
+
+    }
+
+    @Override
+    String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("address", address)
+                .append("type", type)
+                .append("latitude", latitude)
+                .append("longitude", longitude)
+                .append("datetime", datetime)
+                .append("incidentNumber", incidentNumber)
+                .append("zip", zip)
+                .toString()
+    }
 }

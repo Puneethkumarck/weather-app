@@ -54,7 +54,11 @@ class WeatherService {
 
             log.info("Service: {}. Incident: {}. Fetched weatherRecord Object {}", serviceName, weatherRequest.incidentNumber, weatherResponse)
 
-            weatherServiceDao.insertCassandra(weatherResponse)
+            try {
+                weatherServiceDao.insertCassandra(weatherResponse)
+            }catch (Exception e){
+                log.error("exception occurred inserting data into casandra",e)
+            }
 
         }
 

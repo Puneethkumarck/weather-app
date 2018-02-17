@@ -22,11 +22,14 @@ class WeatherServiceCircuit {
 
     @HystrixCommand(fallbackMethod = "processWeatherFallback")
     WeatherResponse processWeatherResponse(float lang, float lat, String appID, String appSecret){
+        log.info("circuit breaker method processing weather request for lat  ${lat} and ${lang}")
+
+
         retryWeatherService.getWeatherResponse(lang,lat,appID,appSecret)
     }
 
 
-    WeatherResponse processWeatherFallback(String lang,String lat,String appID,String appSecret){
+    WeatherResponse processWeatherFallback(float lang,float lat,String appID,String appSecret){
         log.warn('Circuit Breaker Fallback method for the service {} and time is {} ', serviceName,Instant.now())
         null
     }
