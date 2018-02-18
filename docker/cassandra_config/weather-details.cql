@@ -2,11 +2,13 @@ CREATE keyspace if NOT exists weather WITH replication = {'class' : 'SimpleStrat
 
 CREATE TABLE IF NOT exists weather.weather_details(
 id text,
-incidentNumber text,
-temperature float,
-conditionDescription text,
-datetime time,
+incident_number text,
+latitude float,
+longitude float,
+temp float,
+condition_desc text,
+datetime text,
 zip text,
-PRIMARY KEY(incidentNumber,datetime)
+PRIMARY KEY(incident_number,datetime)
 );
 
