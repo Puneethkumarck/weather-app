@@ -19,8 +19,7 @@ class WeatherRequest {
 
      float longitude
 
-    @JsonDeserialize(using = CustomDeserializer.class)
-     LocalDateTime datetime
+     String datetime
 
      String incidentNumber
 
