@@ -32,8 +32,6 @@ class WeatherService {
 
         float lag = weatherRequest.longitude
 
-        LocalDateTime localDateTime= weatherRequest.datetime
-
         WeatherResponse weatherResponse
 
 
@@ -49,8 +47,10 @@ class WeatherService {
             }
 
             weatherResponse.incidentNumber=weatherRequest.incidentNumber
-            weatherResponse.datetime= localDateTime
+            weatherResponse.datetime= weatherRequest.datetime
             weatherResponse.zip=weatherRequest.zip
+            weatherResponse.latitude=weatherRequest.latitude
+            weatherResponse.longitude=weatherRequest.longitude
 
             log.info("Service: {}. Incident: {}. Fetched weatherRecord Object {}", serviceName, weatherRequest.incidentNumber, weatherResponse)
 

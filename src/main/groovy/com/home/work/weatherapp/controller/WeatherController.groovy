@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -30,7 +31,7 @@ class WeatherController {
     AtomicInteger atomicInteger=new AtomicInteger()
 
     @RequestMapping(value = '/details/{lang}/{lat}', produces = "application/json")
-    WeatherResponse getWeatherDetails(@PathVariable float lang, @PathVariable float lat){
+    String getWeatherDetails(@PathVariable float lang, @PathVariable float lat){
 
         try{
 
@@ -38,7 +39,8 @@ class WeatherController {
             weatherRequest.latitude=lang
             weatherRequest.longitude=lat
             weatherRequest.incidentNumber=atomicInteger.incrementAndGet()
-            weatherRequest.datetime=LocalDateTime.now()
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("E, y-M-d 'at' h:m:s a z")
+            weatherRequest.datetime=dateFormatter.format(new Date())
 
             ListenableFuture<SendResult<Integer,String>> future = kafkaTemplate.send(topic,objectMapper.writeValueAsString(weatherRequest))
 
@@ -47,16 +49,18 @@ class WeatherController {
                 @Override
                 void onFailure(Throwable throwable) {
                     log.error("Error occurred while sending login history data to kafka ${throwable}")
+                    "FAILURE"
                 }
 
                 @Override
                 void onSuccess(SendResult sendResult) {
                     log.info("Success Callback --> Success On sending weather request event to topic=${topic} with message=${sendResult} offset=${sendResult.recordMetadata.offset()} partition=${sendResult.recordMetadata.partition()}")
+                    "SUCCESS"
                 }
             })
 
         }catch (Exception e){
-            log.error("Exception occurred while sending weather request ")
+            log.error("Exception occurred while sending weather request ",e)
         }
 
     }
