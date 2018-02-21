@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  zoo1:
+  cassandra-weather:
     image: cassandra:latest
     ports:
-        - "9043:9042"
+        - "9042:9042"

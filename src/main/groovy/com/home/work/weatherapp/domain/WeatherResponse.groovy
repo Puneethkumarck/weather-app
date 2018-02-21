@@ -1,4 +1,6 @@
 package com.home.work.weatherapp.domain
+
+import org.apache.commons.lang.builder.ToStringBuilder
 import org.springframework.cassandra.core.PrimaryKeyType
 import org.springframework.data.cassandra.mapping.Column
 import org.springframework.data.cassandra.mapping.PrimaryKeyColumn
@@ -25,20 +27,22 @@ class WeatherResponse {
      String zip
 
     @Column('latitude')
-    String latitude
+    float latitude
 
     @Column('longitude')
-    String longitude
+    float longitude
 
 
     @Override
-    String toString() {
-        return "WeatherResponse{" +
-                "incidentNumber='" + incidentNumber + '\'' +
-                ", temperature=" + temperature +
-                ", conditionDescription='" + conditionDescription + '\'' +
-                ", datetime=" + datetime +
-                ", zip='" + zip + '\'' +
-                '}'
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("incidentNumber", incidentNumber)
+                .append("temperature", temperature)
+                .append("conditionDescription", conditionDescription)
+                .append("datetime", datetime)
+                .append("zip", zip)
+                .append("latitude", latitude)
+                .append("longitude", longitude)
+                .toString();
     }
 }
