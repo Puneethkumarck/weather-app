@@ -7,3 +7,19 @@ confluent-kafka in windows
 - kafka-server-start.bat ../.. /etc/kafka/server.properties --> Starting kafka broker
 - kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 5 --topic weather_topic --> create kafka topic
 
+Tech
+====
+- Groovy
+- Spring Boot/Spring kafka/Spring Data cassandra
+- Cassandra
+- Kafka
+- Maven
+- Docker
+- Hystrtix,Retryable
+
+Access Url
+==========
+- http://localhost:8080/weather/details/sample
+- http://localhost:8080/weather/details/worldcitiespop
+
+
