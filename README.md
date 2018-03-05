@@ -1,5 +1,5 @@
 # weather-app
-Read the lat &amp; lon from text file post request into kafka queue ,kafka listener will process request and makes http call to weather details and stores the data in cassandra .
+Read the lat &amp; lon from text file post request into kafka queue ,kafka listener will process request and makes http call to weatherunlocked.com hosted service and gathers the relevant data and stores the data in cassandra .
 
 confluent-kafka in windows
 ==========================
